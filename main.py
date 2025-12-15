@@ -61,6 +61,7 @@ def run(url, depth, debug=False, enable_xss=False, enable_sqli=False):
                 debug=debug
             )
 
+
     delete_new_posts_after(base_post_id)
     end = time.time()
     duration = end - start
@@ -73,12 +74,14 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--url", required=True)
     parser.add_argument("--depth", type=int, default=1)
+    parser.add_argument("--email", type=str, help="Login email")
+    parser.add_argument("--password", type=str, help="Login password")
     parser.add_argument("-d", "--debug", action="store_true")
     parser.add_argument("--xss", action="store_true", help="Enable XSS fuzzing only")
     parser.add_argument("--sqli", action="store_true", help="Enable SQLi fuzzing only")
     args = parser.parse_args()
 
-    ok = do_login()
+    ok = do_login(args.url, args.email, args.password)
     if not ok:
         print("[!] Login failed, fuzzing unauthenticated only")
     else:

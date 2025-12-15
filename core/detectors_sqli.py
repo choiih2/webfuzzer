@@ -19,7 +19,7 @@ def detect_time_based_sqli(response_time: float,
 
 def detect_boolean_based_sqli(true_resp_text: str,
                               false_resp_text: str,
-                              length_diff_threshold: int = 500) -> bool:
+                              length_diff_threshold: int = 250) -> bool:
     len_true  = len(true_resp_text)
     len_false = len(false_resp_text)
 

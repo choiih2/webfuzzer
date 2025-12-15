@@ -1,7 +1,8 @@
 # core/config.py
 DIR_WORDLIST = "wordlists/directories.txt"
 SQLI_ERROR_FILE = "payloads/sqli_error.txt"
-SQLI_UNION_FILE = "payloads/sqli_union.txt"
+SQLI_BOOLEAN_TRUE_FILE = "payloads/sqli_boolean_true.txt"
+SQLI_BOOLEAN_FALSE_FILE = "payloads/sqli_boolean_false.txt"
 SQLI_TIME_FILE = "payloads/sqli_time.txt"
 XSS_PAYLOADS = "payloads/xss.txt"
 

@@ -1,5 +1,5 @@
 # core/payload_loader.py
-from core.config import DIR_WORDLIST, SQLI_ERROR_FILE, SQLI_TIME_FILE, XSS_PAYLOADS
+from core.config import DIR_WORDLIST, SQLI_ERROR_FILE, SQLI_BOOLEAN_TRUE_FILE, SQLI_BOOLEAN_FALSE_FILE, SQLI_TIME_FILE, XSS_PAYLOADS
 import os
 
 def load_list(path):
@@ -14,18 +14,16 @@ def load_boolean_pairs(true_file, false_file):
         print("[!] Boolean payload line count mismatch!")
         print(f"  true:  {len(true_list)} lines")
         print(f"  false: {len(false_list)} lines")
-        pairs = list(zip(true_list, false_list))
-    else:
-        pairs = list(zip(true_list, false_list))
+
+    pairs = list(zip(true_list, false_list))
 
     print(f"[+] Loaded {len(pairs)} boolean-based SQLi pairs")
     return pairs
 
-# convenience helpers for the rest of the code
 def load_default_sqli_payloads():
     return {
         "error": load_list(SQLI_ERROR_FILE) if os.path.exists(SQLI_ERROR_FILE) else [],
-        "boolean": load_boolean_pairs("payloads/sqli_boolean_true.txt", "payloads/sqli_boolean_false.txt"),
+        "boolean": load_boolean_pairs(SQLI_BOOLEAN_TRUE_FILE, SQLI_BOOLEAN_FALSE_FILE),
         "time": load_list(SQLI_TIME_FILE) if os.path.exists(SQLI_TIME_FILE) else []
     }
 
