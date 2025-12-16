@@ -31,7 +31,6 @@ def fuzz_injection_point(url, method, data_fields,
 
     error_payloads   = payloads.get("error", [])
     boolean_payloads = payloads.get("boolean", [])
-    union_payloads   = payloads.get("union", [])
     time_payloads    = payloads.get("time", [])
     xss_payloads     = payloads.get("xss", [])
 
