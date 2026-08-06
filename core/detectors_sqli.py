@@ -1,14 +1,22 @@
 # core/detectors_sqli.py
+
 SQL_ERROR_PATTERNS = [
-    "sqlstate", "syntax error", "mysql", "pdoexception",
-    "unterminated", "unclosed", "odbc", "mariadb", "column count",
-    "warning: mysql", "you have an error in your sql syntax",
+    "you have an error in your sql syntax",
+    "warning: mysqli",
+    "warning: mysql_",
+    "unclosed quotation mark",
+    "quoted string not properly terminated",
+    "sqlstate[",
+    "xpath syntax error",
+    "supplied argument is not a valid mysql",
+    "pdoexception",
 ]
 
-def detect_error_based_sqli(text: str) -> bool:
+def detect_error_based_sqli(text: str, baseline_text: str = "") -> bool:
     t = text.lower()
+    b = baseline_text.lower()
     for err in SQL_ERROR_PATTERNS:
-        if err in t:
+        if err in t and err not in b:
             return True
     return False
 

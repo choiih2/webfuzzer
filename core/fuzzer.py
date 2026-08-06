@@ -9,6 +9,12 @@ from core.detectors_sqli import (
 from core.detectors_xss import detect_xss
 from core.utils import get_endpoint_string
 
+def _send(url, method, fields):
+    """method가 GET이면 쿼리스트링(params)으로, 아니면 바디(data)로 payload를 보낸다."""
+    if method == "GET":
+        return fetch(url, method="GET", params=fields)
+    return fetch(url, method=method, data=fields)
+
 def fuzz_injection_point(url, method, data_fields,
                          payloads,
                          base_resp,
@@ -16,18 +22,17 @@ def fuzz_injection_point(url, method, data_fields,
                          base_url,
                          enable_sqli, enable_xss,
                          debug):
-
     print("\n────────────────────────────────────────")
     print(f"[PAYLOAD TESTING] Injection: {injection_name}")
     print("────────────────────────────────────────")
-
     endpoint = get_endpoint_string(url)
     injected_fields = list(data_fields.keys())
 
-    # baseline timing
+    # baseline (정상 입력 기준선)
     baseline_start = time.time()
-    base_check_resp, _ = fetch(url, method=method, data=data_fields)
+    base_check_resp, _ = _send(url, method, data_fields)
     baseline_time = time.time() - baseline_start
+    baseline_text = base_check_resp.text if base_check_resp else ""
 
     error_payloads   = payloads.get("error", [])
     boolean_payloads = payloads.get("boolean", [])
@@ -38,38 +43,32 @@ def fuzz_injection_point(url, method, data_fields,
     if enable_sqli:
         for p in error_payloads:
             data = {k: p for k in data_fields}
-            resp, _ = fetch(url, method=method, data=data)
-
-            if resp and detect_error_based_sqli(resp.text):
+            resp, _ = _send(url, method, data)
+            if resp and detect_error_based_sqli(resp.text, baseline_text):
                 print(f"⚠ DETECTED SQLi (Error-based) → {p}")
                 log_vulns.append([p, "SQLi (Error-based)", resp.status_code, len(resp.text), endpoint, injected_fields])
 
     # 2) BOOLEAN-BASED SQLi
     if enable_sqli:
         for true_p, false_p in boolean_payloads:
-            keys = list(data_fields.keys())
-            if not keys: continue
-
+            if not data_fields:
+                continue
             data_true  = {k: true_p for k in data_fields}
             data_false = {k: false_p for k in data_fields}
-
-            true_resp, _  = fetch(url, method=method, data=data_true)
-            false_resp, _ = fetch(url, method=method, data=data_false)
-
+            true_resp, _  = _send(url, method, data_true)
+            false_resp, _ = _send(url, method, data_false)
             if true_resp and false_resp:
                 if detect_boolean_based_sqli(true_resp.text, false_resp.text):
                     print(f"⚠ DETECTED SQLi (Boolean-based) → {true_p}|{false_p}")
-                    log_vulns.append([ true_p, "SQLi (Boolean-based)", true_resp.status_code, len(true_resp.text), endpoint, injected_fields])
+                    log_vulns.append([true_p, "SQLi (Boolean-based)", true_resp.status_code, len(true_resp.text), endpoint, injected_fields])
 
     # 3) TIME-BASED SQLi
     if enable_sqli:
         for p in time_payloads:
             data = {k: p for k in data_fields}
-
             start = time.time()
-            resp, _ = fetch(url, method=method, data=data)
+            resp, _ = _send(url, method, data)
             elapsed = time.time() - start
-
             if resp and detect_time_based_sqli(elapsed, baseline_time):
                 print(f"⚠ DETECTED SQLi (Time-based) → {p}")
                 log_vulns.append([p, "SQLi (Time-based)", resp.status_code, len(resp.text), endpoint, injected_fields])
@@ -78,8 +77,7 @@ def fuzz_injection_point(url, method, data_fields,
     if enable_xss:
         for p in xss_payloads:
             data = {k: p for k in data_fields}
-            resp, _ = fetch(url, method=method, data=data)
-
+            resp, _ = _send(url, method, data)
             if resp:
                 xss_type = detect_xss(p, resp)
                 if xss_type:
