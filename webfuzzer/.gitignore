@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+fuzz_report.txt
+webfuzzer/
